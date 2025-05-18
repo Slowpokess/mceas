@@ -1,0 +1,5 @@
+{
+    "C_Cpp.errorSquiggles": "enabled",
+    "eslint.codeActionsOnSave.mode": "all",
+    "editor.codeActions.triggerOnFocusChange": true
+}
