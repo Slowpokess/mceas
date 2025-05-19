@@ -14,17 +14,17 @@ EdgeAnalyzer::EdgeAnalyzer() {
     
     try {
         // Проверяем, установлен ли Edge (на macOS он называется Microsoft Edge)
-        is_installed_ = browser::isBrowserInstalledMacOS("Microsoft Edge");
+        is_installed_ = browser::isBrowserInstalled("Microsoft Edge");
         
         if (is_installed_) {
             // Получаем путь к исполняемому файлу
-            executable_path_ = browser::getExecutablePathMacOS("Microsoft Edge");
+            executable_path_ = browser::getExecutablePath("Microsoft Edge");
             
             // Получаем версию
-            version_ = browser::getBrowserVersionMacOS("Microsoft Edge", "CFBundleShortVersionString");
+            version_ = browser::getBrowserVersion("Microsoft Edge", "CFBundleShortVersionString");
             
             // Получаем путь к профилю (Edge использует структуру, похожую на Chrome)
-            profile_path_ = browser::getProfilePathMacOS("Library/Application Support/Microsoft Edge/Default");
+            profile_path_ = browser::getProfilePath("Library/Application Support/Microsoft Edge/Default");
         }
     }
     catch (const std::exception& e) {

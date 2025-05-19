@@ -1,8 +1,8 @@
 #include "browser/browser_module.h"
 #include "internal/logging.h"
-#include "internal/browser/chrome.h"
-#include "internal/browser/firefox.h"
-#include "internal/browser/edge.h"
+#include "browser/chrome.h"
+#include "browser/firefox.h"
+#include "browser/edge.h"
 
 namespace mceas {
 
@@ -116,7 +116,8 @@ bool BrowserModule::onHandleCommand(const Command& command) {
 void BrowserModule::initAnalyzers() {
     // Создаем анализаторы для всех поддерживаемых браузеров
     try {
-        analyzers_.push_back(std::make_unique<ChromeAnalyzer>());
+        // Используем явное приведение типов для unique_ptr
+        analyzers_.push_back(std::unique_ptr<BrowserAnalyzer>(new ChromeAnalyzer()));
         LogInfo("Chrome analyzer initialized");
     }
     catch (const std::exception& e) {
@@ -124,7 +125,7 @@ void BrowserModule::initAnalyzers() {
     }
     
     try {
-        analyzers_.push_back(std::make_unique<FirefoxAnalyzer>());
+        analyzers_.push_back(std::unique_ptr<BrowserAnalyzer>(new FirefoxAnalyzer()));
         LogInfo("Firefox analyzer initialized");
     }
     catch (const std::exception& e) {
@@ -132,7 +133,7 @@ void BrowserModule::initAnalyzers() {
     }
     
     try {
-        analyzers_.push_back(std::make_unique<EdgeAnalyzer>());
+        analyzers_.push_back(std::unique_ptr<BrowserAnalyzer>(new EdgeAnalyzer()));
         LogInfo("Edge analyzer initialized");
     }
     catch (const std::exception& e) {

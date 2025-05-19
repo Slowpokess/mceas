@@ -2,11 +2,11 @@
 #define MCEAS_BROWSER_CHROME_H
 
 #include "browser/browser_module.h"
-#include "browser/common.h"
+#include <string>
+#include <map>
 
 namespace mceas {
 
-// Анализатор для браузера Chrome
 class ChromeAnalyzer : public BrowserAnalyzer {
 public:
     ChromeAnalyzer();
@@ -21,11 +21,6 @@ public:
     std::map<std::string, std::string> collectData() override;
     
 private:
-    // Методы анализа данных Chrome
-    std::vector<Bookmark> getBookmarks();
-    std::vector<HistoryEntry> getHistory(int limit = 100);
-    std::vector<Extension> getExtensions();
-    
     // Кэшированные данные
     std::string version_;
     std::string executable_path_;

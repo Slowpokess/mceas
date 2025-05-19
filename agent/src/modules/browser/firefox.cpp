@@ -14,19 +14,19 @@ FirefoxAnalyzer::FirefoxAnalyzer() {
     
     try {
         // Проверяем, установлен ли Firefox
-        is_installed_ = browser::isBrowserInstalledMacOS("Firefox");
+        is_installed_ = browser::isBrowserInstalled("Firefox");
         
         if (is_installed_) {
             // Получаем путь к исполняемому файлу
-            executable_path_ = browser::getExecutablePathMacOS("Firefox");
+            executable_path_ = browser::getExecutablePath("Firefox");
             
             // Получаем версию
-            version_ = browser::getBrowserVersionMacOS("Firefox", "CFBundleShortVersionString");
+            version_ = browser::getBrowserVersion("Firefox", "CFBundleShortVersionString");
             
             // Получаем путь к профилю
             // Firefox использует случайно сгенерированное имя для директории профиля
             // Здесь мы используем упрощение, предполагая, что есть только одна директория профиля
-            std::string mozilla_dir = browser::getProfilePathMacOS("Library/Application Support/Mozilla");
+            std::string mozilla_dir = browser::getProfilePath("Library/Application Support/Mozilla");
             if (!mozilla_dir.empty()) {
                 std::string firefox_dir = mozilla_dir + "/Firefox/Profiles";
                 

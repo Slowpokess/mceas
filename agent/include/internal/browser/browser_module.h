@@ -4,8 +4,15 @@
 #include "module_base.h"
 #include <vector>
 #include <memory>
+#include <map>
+#include <string>
 
 namespace mceas {
+
+// Предварительные объявления конкретных анализаторов
+class ChromeAnalyzer;
+class FirefoxAnalyzer;
+class EdgeAnalyzer;
 
 // Перечисление поддерживаемых браузеров
 enum class BrowserType {
