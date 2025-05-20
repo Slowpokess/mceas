@@ -1,5 +1,7 @@
 #include "browser/browser_module.h"
-#include "internal/module_manager.h"
+#include "internal/crypto_module.h"
+#include "telemetry/file_telemetry_module.h"
+#include "internal/behavior_module.h"
 #include "internal/logging.h"
 #include <algorithm>
 
@@ -181,6 +183,7 @@ bool ModuleManager::executeModuleCommand(const std::string& module_name, const C
     }
 }
 
+// В функции loadModule добавляем поддержку модуля FILE_TELEMETRY
 std::shared_ptr<Module> ModuleManager::loadModule(ModuleType type) {
     // Создаем экземпляр конкретного модуля в зависимости от типа
     switch (type) {
@@ -189,16 +192,21 @@ std::shared_ptr<Module> ModuleManager::loadModule(ModuleType type) {
             LogInfo("Created Browser Module");
             return module;
         }
-        // Другие типы модулей будут добавлены позже
-        case ModuleType::CRYPTO:
-            LogInfo("Crypto Module is not implemented yet");
-            return nullptr;
-        case ModuleType::FILE:
-            LogInfo("File Telemetry Module is not implemented yet");
-            return nullptr;
-        case ModuleType::BEHAVIOR:
-            LogInfo("Behavior Module is not implemented yet");
-            return nullptr;
+        case ModuleType::CRYPTO: {
+            auto module = std::make_shared<CryptoModule>();
+            LogInfo("Created Crypto Module");
+            return module;
+        }
+        case ModuleType::FILE: {
+            auto module = std::make_shared<FileTelemetryModule>();
+            LogInfo("Created File Telemetry Module");
+            return module;
+        }
+        case ModuleType::BEHAVIOR: {
+            auto module = std::make_shared<BehaviorModule>();
+            LogInfo("Created Behaivor Module");
+            return module;
+        }
         default:
             LogWarning("Unknown module type: " + std::to_string(static_cast<int>(type)));
             return nullptr;
